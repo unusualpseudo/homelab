@@ -1,33 +1,60 @@
 ---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/postgresql.cnpg.io/cluster_v1.json
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
   name: postgres
-  namespace: database
 spec:
-  instances: 1
-  imageName: ghcr.io/cloudnative-pg/postgresql:15.3
-  primaryUpdateStrategy: unsupervised
+  instances: 3
+  imageName: ghcr.io/cloudnative-pg/postgresql:16.3-10
   storage:
     size: 20Gi
-    storageClass: longhorn
+    storageClass: openebs-hostpath
   superuserSecret:
     name: cloudnative-pg-secret
+  enableSuperuserAccess: true
+  postgresql:
+    parameters:
+      max_connections: "200"
+      shared_buffers: 256MB
+  nodeMaintenanceWindow:
+    inProgress: false
+    reusePVC: true
+  resources:
+    requests:
+      cpu: 256Mi
+    limits:
+      memory: 1Gi
   monitoring:
     enablePodMonitor: true
   backup:
     retentionPolicy: 30d
-    barmanObjectStore:
+    barmanObjectStore: &barmanObjectStore
+      data:
+        compression: bzip2
       wal:
         compression: bzip2
-        maxParallel: 8
-      destinationPath: s3://postgresql/
-      endpointURL: http://minio.storage:9000
-      serverName: postgres
+        maxParallel: 3
+      destinationPath: s3://cloudnative-pg/
+      endpointURL: http://minio.default.svc.cluster.local:9000
+      # Note: serverName version needs to be incremented
+      # when recovering from an existing cnpg cluster
+      serverName: &currentCluster postgres-v0
       s3Credentials:
         accessKeyId:
           name: cloudnative-pg-secret
-          key: minio-access-key-id
+          key: aws-access-key-id
         secretAccessKey:
           name: cloudnative-pg-secret
-          key: minio-secret-access-key
+          key: aws-secret-access-key
+# Note: previousCluster needs to be set to the name of the previous
+# cluster when recovering from an existing cnpg cluster
+# bootstrap:
+#   recovery:
+#     source: &previousCluster postgres16-v5
+# Note: externalClusters is needed when recovering from an existing cnpg cluster
+# externalClusters:
+#   - name: *previousCluster
+#     barmanObjectStore:
+#       <<: *barmanObjectStore
+#       serverName: *previousCluster

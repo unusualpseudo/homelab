@@ -2,15 +2,19 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: cluster-apps-coredns
+  name: &app coredns
   namespace: flux-system
 spec:
+  targetNamespace: kube-system
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
   interval: 30m
   retryInterval: 1m
-  timeout: 3m
+  timeout: 5m
   path: ./kubernetes/main/apps/kube-system/coredns/app
-  prune: true
-  wait: true
+  prune: false
+  wait: false
   sourceRef:
     kind: GitRepository
-    name: homelab-repository
+    name: homelab

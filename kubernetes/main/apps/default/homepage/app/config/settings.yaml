@@ -9,7 +9,7 @@ layout:
     style: row
     icon: mdi-chart-line
     columns: 3
-  Networking:
+  Network:
     style: row
     icon: mdi-wan
     columns: 1

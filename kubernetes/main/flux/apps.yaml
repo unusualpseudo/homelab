@@ -11,7 +11,7 @@ spec:
   prune: true
   sourceRef:
     kind: GitRepository
-    name: homelab-repository
+    name: homelab
   decryption:
     provider: sops
     secretRef:

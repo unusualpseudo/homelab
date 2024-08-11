@@ -10,11 +10,13 @@ env:
 
 
 includes:
-  sops: ./.taskfiles/SopsTasks.yaml
-  flux: ./.taskfiles/FluxTasks.yaml
-  pre-commit: ./.taskfiles/PrecommitTasks.yaml
-  k8s: ./.taskfiles/Kubernetes.yaml
-  secrets: ./.taskfiles/ExternalSecrets.yaml
+  sops: ./.taskfiles/sops/Taskfile.yaml
+  flux: ./.taskfiles/flux/Taskfile.yaml
+  pre-commit: ./.taskfiles/precommit/Taskfile.yaml
+  kubernetes:
+    aliases: ["k8s"]
+    taskfile: ./.taskfiles/kubernetes/Taskfile.yaml
+  secrets: ./.taskfiles/externalSecrets/Taskfile.yaml
 tasks:
   default:
     silent: true
