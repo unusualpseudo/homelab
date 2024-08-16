@@ -22,6 +22,7 @@ tasks:
       - { msg: "Unable to decrypt sops secret", sh: "sops --decrypt {{.KUBERNETES_DIR}}/flux/vars/cluster-secrets.sops.env" }
 
   reconcile:
+    aliases: ["rc", "rec", "sync"]
     desc: Force update Flux to pull in changes from your Git repository
     cmds:
       - flux --context {{.CLUSTER}} reconcile -n flux-system source git homelab
