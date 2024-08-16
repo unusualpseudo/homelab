@@ -24,13 +24,11 @@ spec:
     remediation:
       strategy: rollback
       retries: 3
-
   valuesFrom:
     - targetPath: controller.maxmindLicenseKey
       kind: Secret
       name: nginx-external-maxmind-secret
       valuesKey: MAXMIND_LICENSE_KEY
-
   values:
     fullnameOverride: nginx-external
     controller:
@@ -39,6 +37,7 @@ spec:
         annotations:
           io.cilium/lb-ipam-ips: "${NGINX_EXTERNAL_ADDR}"
           external-dns.alpha.kubernetes.io/hostname: "external.${CLOUDFLARE_DOMAIN}"
+          configmap.reloader.stakater.com/reload: nginx-external-controller
       ingressClassResource:
         name: external
         default: false
@@ -50,7 +49,7 @@ spec:
               operator: In
               values: ["external"]
       extraArgs:
-        default-ssl-certificate: "network/tls.${CLOUDFLARE_DOMAIN}"
+        default-ssl-certificate: "network/tls.${CLOUDFLARE_DOMAIN/./-}"
       extraEnvs:
         - name: TZ
           value: "${TIMEZONE}"
@@ -81,20 +80,17 @@ spec:
         ssl-protocols: TLSv1.3 TLSv1.2
         use-geoip2: true
         use-forwarded-headers: "true"
-
     resources:
       requests:
         cpu: 100m
         memory: 250Mi
       limits:
       memory: 500Mi
-
     metrics:
       enabled: true
       serviceMonitor:
         enabled: true
         namespaceSelector:
           any: true
-
     defaultBackend:
       enable: false

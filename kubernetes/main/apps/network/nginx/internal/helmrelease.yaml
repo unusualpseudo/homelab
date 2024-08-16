@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: ingress-nginx
-      version: 4.11.1
+      version: 4.11.2
       sourceRef:
         kind: HelmRepository
         name: ingress-nginx
@@ -28,11 +28,13 @@ spec:
     fullnameOverride: nginx-internal
     controller:
       replicaCount: 1
+      annotations:
+        configmap.reloader.stakater.com/reload: nginx-internal-controller
       extraEnvs:
         - name: TZ
           value: "${TIMEZONE}"
       extraArgs:
-        default-ssl-certificate: "tls.${CLOUDFLARE_DOMAIN/./-}"
+        default-ssl-certificate: "network/tls.${CLOUDFLARE_DOMAIN/./-}"
         enable-annotation-validation: true
       service:
         annotations:

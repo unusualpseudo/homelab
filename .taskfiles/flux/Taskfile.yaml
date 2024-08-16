@@ -3,6 +3,7 @@ version: "3"
 tasks:
   bootstrap:
     desc: Install flux and apps cluster
+    deps: [ k8s:kubeconfig ]
     cmds:
       - flux check --pre
       - kubectl --context {{.CLUSTER}} apply --server-side --kustomize {{.KUBERNETES_DIR}}/bootstrap/flux
@@ -22,7 +23,7 @@ tasks:
       - { msg: "Unable to decrypt sops secret", sh: "sops --decrypt {{.KUBERNETES_DIR}}/flux/vars/cluster-secrets.sops.env" }
 
   reconcile:
-    aliases: ["rc", "rec", "sync"]
+    aliases: [ "rc", "rec", "sync" ]
     desc: Force update Flux to pull in changes from your Git repository
     cmds:
       - flux --context {{.CLUSTER}} reconcile -n flux-system source git homelab
