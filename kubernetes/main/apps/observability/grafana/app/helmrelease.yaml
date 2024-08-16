@@ -193,8 +193,6 @@ spec:
       enabled: true
     ingress:
       enabled: true
-      annotations:
-        external-dns.alpha.kubernetes.io/target: "internal.${CLOUDFLARE_DOMAIN}"
       ingressClassName: internal
       hosts: ["grafana.${CLOUDFLARE_DOMAIN}"]
     persistence:
