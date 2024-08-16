@@ -5,6 +5,3 @@ namespace: database
 resources:
   - cluster.yaml
   - service.yaml
-  - prometheusrule.yaml
-  - scheduledbackup.yaml
-  - gatus.yaml
