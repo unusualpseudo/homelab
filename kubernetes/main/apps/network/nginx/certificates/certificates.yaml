@@ -3,9 +3,9 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: "${CLOUDFLARE_DOMAIN}"
+  name: "${CLOUDFLARE_DOMAIN/./-}"
 spec:
-  secretName: "tls.${CLOUDFLARE_DOMAIN}"
+  secretName: "tls.${CLOUDFLARE_DOMAIN/./-}"
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer

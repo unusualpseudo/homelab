@@ -16,12 +16,19 @@ spec:
         namespace: flux-system
   values:
     persistence:
-      defaultClassReplicaCount: 2
+      defaultClassReplicaCount: 1
     defaultSettings:
-      defaultReplicaCount: 2
+      defaultReplicaCount: 1
       defaultLonghornStaticStorageClass: longhorn
     ingress:
       enabled: true
       ingressClassName: internal
+      annotations:
+        external-dns.alpha.kubernetes.io/target: internal.${SECRET_DOMAIN}
       host: "longhorn.${CLOUDFLARE_DOMAIN}"
-      tls: true
+      tls: false
+    longhornUI:
+      replicas: 1
+    metrics:
+      serviceMonitor:
+        enabled: true
