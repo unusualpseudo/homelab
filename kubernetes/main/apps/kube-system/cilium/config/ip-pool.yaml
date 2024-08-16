@@ -7,4 +7,5 @@ metadata:
 spec:
   allowFirstLastIPs: "Yes"
   blocks:
-    - cidr: "${CILIUM_IP_POOL_CIDR}"
+    - start: "${CILIUM_IP_POOL_START}"
+      stop: "${CILIUM_IP_POOL_END}"

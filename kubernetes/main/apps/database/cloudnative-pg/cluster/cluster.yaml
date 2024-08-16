@@ -36,7 +36,7 @@ spec:
         compression: bzip2
         maxParallel: 3
       destinationPath: s3://cloudnative-pg/
-      endpointURL: http://minio.default.svc.cluster.local:9000
+      endpointURL: http://minio.storage.svc.cluster.local:9000
       # Note: serverName version needs to be incremented
       # when recovering from an existing cnpg cluster
       serverName: &currentCluster postgres-v0
