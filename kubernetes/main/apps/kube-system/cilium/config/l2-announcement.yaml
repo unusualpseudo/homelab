@@ -6,4 +6,3 @@ metadata:
   name: "l2-policy"
 spec:
   loadBalancerIPs: true
-  interfaces: ["^eth.*"]
