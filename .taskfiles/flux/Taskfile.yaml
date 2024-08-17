@@ -3,8 +3,8 @@ version: "3"
 tasks:
   bootstrap:
     desc: Install flux and apps cluster
-    deps: [ k8s:kubeconfig ]
     cmds:
+      - task k8s:kubeconfig
       - flux check --pre
       - kubectl --context {{.CLUSTER}} apply --server-side --kustomize {{.KUBERNETES_DIR}}/bootstrap/flux
       - sops --decrypt {{.KUBERNETES_DIR}}/bootstrap/flux/age-key.secret.sops.yaml | kubectl --context {{.CLUSTER}} apply --server-side --filename -

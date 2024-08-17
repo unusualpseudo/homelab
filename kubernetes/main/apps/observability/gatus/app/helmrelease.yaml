@@ -62,7 +62,7 @@ spec:
               TZ: ${TIMEZONE}
               GATUS_CONFIG_PATH: /config
               GATUS_DELAY_START_SECONDS: 5
-              WEB_PORT: &port 80
+              WEB_PORT: &port "80"
             envFrom: *envFrom
             probes:
               liveness: &probes
@@ -110,8 +110,6 @@ spec:
             scrapeTimeout: 10s
     ingress:
       app:
-        annotations:
-          external-dns.alpha.kubernetes.io/target: "internal.${CLOUDFLARE_DOMAIN}"
         className: internal
         hosts:
           - host: "status.${CLOUDFLARE_DOMAIN}"
