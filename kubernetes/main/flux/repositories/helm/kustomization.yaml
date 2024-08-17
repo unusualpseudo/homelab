@@ -19,3 +19,5 @@ resources:
   - cilium.yaml
   - openebs.yaml
   - longhorn.yaml
+  - node-feature-discovery.yaml
+  - intel.yaml

@@ -8,3 +8,6 @@ resources:
   - kube-vip/ks.yaml
   - reloader/ks.yaml
   - metrics-server/ks.yaml
+  - node-feature-discovery/ks.yaml
+  - intel-device-plugin/ks.yaml
+  - amd-device-plugin/ks.yaml
