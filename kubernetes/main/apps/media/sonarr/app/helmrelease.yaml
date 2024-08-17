@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: radarr
+  name: sonarr
 spec:
   interval: 30m
   chart:
@@ -27,7 +27,7 @@ spec:
       namespace: storage
   values:
     controllers:
-      radarr:
+      sonarr:
         annotations:
           reloader.stakater.com/auto: "true"
         initContainers:
@@ -37,21 +37,21 @@ spec:
               tag: 16
             envFrom: &envFrom
               - secretRef:
-                  name: radarr-secret
+                  name: sonarr-secret
         containers:
           app:
             image:
-              repository: ghcr.io/onedr0p/radarr-develop
-              tag: 5.8.3.8933@sha256:da6094f6cc4dc95af194612a8a4d7db4fc27ff4a6e5748c2e6d5dd7be9ed69a7
+              repository: ghcr.io/onedr0p/sonarr-develop
+              tag: 4.0.8.2158@sha256:0e170fb71f932f78103328127dec5249dcbf384ad62d24087ef0dea47cf7fa5a
             env:
-              RADARR__APP__INSTANCENAME: Radarr
-              RADARR__APP__THEME: dark
-              RADARR__AUTH__METHOD: External
-              RADARR__AUTH__REQUIRED: DisabledForLocalAddresses
-              RADARR__LOG__DBENABLED: "False"
-              RADARR__LOG__LEVEL: info
-              RADARR__SERVER__PORT: &port 80
-              RADARR__UPDATE__BRANCH: develop
+              SONARR__APP__INSTANCENAME: Sonarr
+              SONARR__APP__THEME: dark
+              SONARR__AUTH__METHOD: External
+              SONARR__AUTH__REQUIRED: DisabledForLocalAddresses
+              SONARR__LOG__DBENABLED: "False"
+              SONARR__LOG__LEVEL: info
+              SONARR__SERVER__PORT: &port 80
+              SONARR__UPDATE__BRANCH: develop
               TZ: ${TIMEZONE}
             envFrom: *envFrom
             probes:
@@ -87,7 +87,7 @@ spec:
         seccompProfile: { type: RuntimeDefault }
     service:
       app:
-        controller: radarr
+        controller: sonarr
         ports:
           http:
             port: *port
@@ -103,7 +103,7 @@ spec:
                   port: http
     persistence:
       config:
-        existingClaim: radarr
+        existingClaim: sonarr
       tmp:
         type: emptyDir
       media:
