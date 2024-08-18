@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app amd-device-plugin
+  name: &app amd-device-plugin-gpu
 spec:
   interval: 15m
   chart:
@@ -59,7 +59,7 @@ spec:
     service:
       app:
         enabled: false
-        controller: amd-device-plugin
+        controller: amd-device-plugin-gpu
     persistence:
       sys:
         enabled: true

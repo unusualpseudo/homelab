@@ -27,5 +27,5 @@ spec:
       namespace: kube-system
   values:
     name: intel-gpu-plugin
-    sharedDevNum: 2
+    sharedDevNum: 1
     nodeFeatureRule: false
