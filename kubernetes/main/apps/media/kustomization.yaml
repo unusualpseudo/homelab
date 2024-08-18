@@ -6,4 +6,3 @@ resources:
   - radarr/ks.yaml
   - prowlarr/ks.yaml
   - sonarr/ks.yaml
-  - jellyfin/ks.yaml
