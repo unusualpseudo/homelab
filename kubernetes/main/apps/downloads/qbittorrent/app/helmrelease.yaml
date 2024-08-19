@@ -33,10 +33,7 @@ spec:
           configmap.reloader.stakater.com/reload: protonvpn
         pod:
           securityContext:
-            runAsUser: 442
-            runAsGroup: 442
             fsGroup: 442
-            runAsNonRoot: true
             fsGroupChangePolicy: "OnRootMismatch"
             supplementalGroups:
               - 442 # nas
@@ -67,16 +64,16 @@ spec:
                   periodSeconds: 5
             resources:
               requests:
-                cpu: 30m
-                memory: 1Gi
+                cpu: 49m
+                memory: 3Gi
               limits:
-                memory: 1Gi
+                memory: 5Gi
             securityContext:
               runAsUser: 442
               runAsGroup: 442
               runAsNonRoot: true
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: false
+              readOnlyRootFilesystem: true
               capabilities:
                 drop:
                   - ALL
@@ -87,8 +84,8 @@ spec:
             env:
               VPN_SERVICE_PROVIDER: custom
               VPN_TYPE: wireguard
-              VPN_INTERFACE: wg0
-              VPN_ENDPOINT_PORT: 51820
+              WIREGUARD_INTERFACE: wg0
+              WIREGUARD_ENDPOINT_PORT: 51820
               VPN_PORT_FORWARDING: on
               VPN_PORT_FORWARDING_PROVIDER: protonvpn
               FIREWALL_INPUT_PORTS: 8080
@@ -97,9 +94,7 @@ spec:
               - secretRef:
                   name: protonvpn
             securityContext:
-              capabilities:
-                add:
-                  - NET_ADMIN
+              capabilities: { add: [ "NET_ADMIN" ] }
               allowPrivilegeEscalation: false
           port-forward:
             image:
@@ -113,15 +108,13 @@ spec:
               CRON_ENABLED: true
               CRON_SCHEDULE: "*/5 * * * *"
               LOG_TIMESTAMP: false
-              securityContext:
-                runAsUser: 442
-                runAsGroup: 442
-                runAsNonRoot: true
-                allowPrivilegeEscalation: false
-                readOnlyRootFilesystem: true
-                capabilities:
-                  drop:
-                    - ALL
+            securityContext:
+              runAsUser: 442
+              runAsGroup: 442
+              runAsNonRoot: true
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: [ "ALL" ] }
     service:
       app:
         controller: qbittorrent
