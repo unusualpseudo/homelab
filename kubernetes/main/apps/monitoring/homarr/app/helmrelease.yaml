@@ -1,0 +1,64 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: homer
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+      version: 3.3.2
+  values:
+    controllers:
+      homarr:
+        containers:
+          app:
+            image:
+              repository: ghcr.io/ajnart/homarr
+              tag: 0.15.1@sha256:c59abc5f3b59875c2eaf3a0a19fec7951ef96650101fa67534978987205ca0a0
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
+            resources:
+              limits:
+                memory: 50Mi
+              requests:
+                cpu: 10m
+                memory: 20Mi
+            securityContext:
+              allowPrivilegeEscalation: false
+              capabilities:
+                drop:
+                  - ALL
+              readOnlyRootFilesystem: true
+    defaultPodOptions:
+      securityContext:
+        fsGroup: 442
+        runAsGroup: 442
+        runAsNonRoot: true
+        runAsUser: 442
+        seccompProfile:
+          type: RuntimeDefault
+    ingress:
+      app:
+        hosts:
+          - host: home.${CLUSTER_DOMAIN}
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+    service:
+      app:
+        controller: homarr
+        ports:
+          http:
+            port: 7575

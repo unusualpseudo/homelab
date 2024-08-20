@@ -1,8 +1,0 @@
----
-- Monitoring:
-    - Grafana:
-        href: https://grafana.falsebit.io
-        icon: grafana.png
-    - Staus:
-        href: https://status.falsebit.io
-        icon: gatus.png
