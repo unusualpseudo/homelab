@@ -37,10 +37,8 @@ spec:
     alertmanager:
       ingress:
         enabled: true
-        annotations:
-          external-dns.alpha.kubernetes.io/target: "internal.${CLOUDFLARE_DOMAIN}"
         ingressClassName: internal
-        hosts: ["alertmanager.${CLOUDFLARE_DOMAIN}"]
+        hosts: ["alertmanager.${CLUSTER_DOMAIN}"]
         pathType: Prefix
       alertmanagerSpec:
         useExistingSecret: true
@@ -73,10 +71,8 @@ spec:
     prometheus:
       ingress:
         enabled: true
-        annotations:
-          external-dns.alpha.kubernetes.io/target: "internal.${CLOUDFLARE_DOMAIN}"
         ingressClassName: internal
-        hosts: ["prometheus.${CLOUDFLARE_DOMAIN}"]
+        hosts: ["prometheus.${CLUSTER_DOMAIN}"]
         pathType: Prefix
       prometheusSpec:
         scrapeInterval: 1m # Must match interval in Grafana Helm chart

@@ -41,13 +41,13 @@ spec:
       configmap.reloader.stakater.com/reload: &configmap pgadmin
       secret.reloader.stakater.com/reload: &secret pgadmin
     env:
-      email: ${CLOUDFLARE_EMAIL}
+      email: ${EMAIL}
     existingSecret: pgadmin-secrets
     ingress:
       enabled: true
       ingressClassName: internal
       hosts:
-        - host: pgadmin.${CLOUDFLARE_DOMAIN}
+        - host: pgadmin.${CLUSTER_DOMAIN}
           paths:
             - path: /
               pathType: Prefix

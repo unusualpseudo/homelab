@@ -36,7 +36,6 @@ spec:
       service:
         annotations:
           io.cilium/lb-ipam-ips: "${NGINX_EXTERNAL_ADDR}"
-          external-dns.alpha.kubernetes.io/hostname: "external.${CLOUDFLARE_DOMAIN}"
           configmap.reloader.stakater.com/reload: nginx-external-controller
       ingressClassResource:
         name: external
@@ -49,7 +48,7 @@ spec:
               operator: In
               values: ["external"]
       extraArgs:
-        default-ssl-certificate: "network/tls.${CLOUDFLARE_DOMAIN/./-}"
+        default-ssl-certificate: "network/tls.${CLUSTER_DOMAIN/./-}"
       extraEnvs:
         - name: TZ
           value: "${TIMEZONE}"

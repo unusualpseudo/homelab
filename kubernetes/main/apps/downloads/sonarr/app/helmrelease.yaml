@@ -95,7 +95,7 @@ spec:
       app:
         className: internal
         hosts:
-          - host: "{{ .Release.Name }}.${CLOUDFLARE_DOMAIN}"
+          - host: "{{ .Release.Name }}.${CLUSTER_DOMAIN}"
             paths:
               - path: /
                 service:
@@ -109,6 +109,6 @@ spec:
       media:
         type: nfs
         server: ${NFS_MAIN_SERVER_ADDR}
-        path: /nas/Media
+        path: "${NFS_MEDIA_FOLDER}/TvShows"
         globalMounts:
           - path: /media

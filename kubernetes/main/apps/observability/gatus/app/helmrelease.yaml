@@ -112,7 +112,7 @@ spec:
       app:
         className: internal
         hosts:
-          - host: status.${CLOUDFLARE_DOMAIN}
+          - host: status.${CLUSTER_DOMAIN}
             paths:
               - path: /
                 service:

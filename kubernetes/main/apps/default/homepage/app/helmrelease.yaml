@@ -45,10 +45,8 @@ spec:
       main:
         enabled: true
         ingressClassName: nginx
-        annotations:
-          external-dns.alpha.kubernetes.io/target: "ingress.${CLOUDFLARE_DOMAIN}"
         hosts:
-          - host: &host "homepage.${CLOUDFLARE_DOMAIN}"
+          - host: &host "homepage.${CLUSTER_DOMAIN}"
             paths:
               - path: /
                 pathType: Prefix

@@ -34,7 +34,7 @@ spec:
         - name: TZ
           value: "${TIMEZONE}"
       extraArgs:
-        default-ssl-certificate: "network/tls.${CLOUDFLARE_DOMAIN/./-}"
+        default-ssl-certificate: "network/tls.${CLUSTER_DOMAIN/./-}"
         enable-annotation-validation: true
       service:
         annotations:

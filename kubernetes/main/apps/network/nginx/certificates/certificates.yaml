@@ -2,13 +2,13 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: "${CLOUDFLARE_DOMAIN/./-}"
+  name: "${CLUSTER_DOMAIN/./-}"
 spec:
-  secretName: "tls.${CLOUDFLARE_DOMAIN/./-}"
+  secretName: "tls.${CLUSTER_DOMAIN/./-}"
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
-  commonName: "${CLOUDFLARE_DOMAIN}"
+  commonName: "${CLUSTER_DOMAIN}"
   dnsNames:
-    - "${CLOUDFLARE_DOMAIN}"
-    - "*.${CLOUDFLARE_DOMAIN}"
+    - "${CLUSTER_DOMAIN}"
+    - "*.${CLUSTER_DOMAIN}"

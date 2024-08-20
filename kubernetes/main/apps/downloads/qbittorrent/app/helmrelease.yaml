@@ -134,14 +134,14 @@ spec:
             proxy_hide_header "content-security-policy";
             proxy_hide_header "X-Frame-Options";
         hosts:
-          - host: &host "torrent.${CLOUDFLARE_DOMAIN}"
+          - host: &host "torrent.${CLUSTER_DOMAIN}"
             paths:
               - path: /
                 service:
                   identifier: app
                   port: http
         tls:
-          - hosts: [*host]
+          - hosts: [ *host ]
     persistence:
       config:
         enabled: true
@@ -152,7 +152,7 @@ spec:
         type: nfs
         enabled: true
         server: ${NFS_MAIN_SERVER_ADDR}
-        path: /nas/Media
+        path: ${NFS_MEDIA_FOLDER}
         advancedMounts:
           qbittorrent:
             app:

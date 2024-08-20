@@ -1,10 +1,10 @@
 ---
 originRequest:
-  originServerName: "external.${CLOUDFLARE_DOMAIN}"
+  originServerName: "external.${CLUSTER_DOMAIN}"
 
 ingress:
-  - hostname: "${CLOUDFLARE_DOMAIN}"
+  - hostname: "${CLUSTER_DOMAIN}"
     service: https://nginx-external-controller.network.svc.cluster.local:443
-  - hostname: "*.${CLOUDFLARE_DOMAIN}"
+  - hostname: "*.${CLUSTER_DOMAIN}"
     service: https://nginx-external-controller.network.svc.cluster.local:443
   - service: http_status:404
