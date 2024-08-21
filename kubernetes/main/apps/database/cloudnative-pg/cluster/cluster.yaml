@@ -16,7 +16,8 @@ spec:
   postgresql:
     parameters:
       max_connections: "200"
-      shared_buffers: "256MB"
+      work_mem: "64MB"
+      shared_buffers: "128MB"
   nodeMaintenanceWindow:
     inProgress: false
     reusePVC: true
@@ -28,3 +29,21 @@ spec:
       memory: 640Mi
   monitoring:
     enablePodMonitor: true
+  backup:
+    retentionPolicy: 7d
+    barmanObjectStore:
+      data:
+        compression: bzip2
+      wal:
+        compression: bzip2
+        maxParallel: 4
+      destinationPath: s3://cnpg/
+      endpointURL: https://s3.${CLUSTER_DOMAIN}
+      serverName: &currentCluster postgres-v1
+      s3Credentials:
+        accessKeyId:
+          name: cloudnative-pg-secret
+          key: s3-access-key
+        secretAccessKey:
+          name: cloudnative-pg-secret
+          key: s3-secret-key
