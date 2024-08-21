@@ -35,7 +35,7 @@ spec:
             env:
               MINIO_API_CORS_ALLOW_ORIGIN: "https://minio.${CLUSTER_DOMAIN},https://s3.${CLUSTER_DOMAIN}"
               MINIO_BROWSER_REDIRECT_URL: "https://minio.${CLUSTER_DOMAIN}"
-              MINIO_SERVER_URL: "https://s3.${CLUSTER_DOMAIN}"
+              MINIO_SERVER_URL: ""
               MINIO_PROMETHEUS_URL: "http://kube-prometheus-stack-prometheus.monitoring:9090"
               MINIO_PROMETHEUS_JOB_ID: minio
               MINIO_PROMETHEUS_AUTH_TYPE: public
@@ -43,7 +43,7 @@ spec:
             envFrom:
               - secretRef:
                   name: minio-secret
-            args: ["server", "/data", "--console-address", ":9001"]
+            args: [ "server", "/data", "--console-address", ":9001" ]
             probes:
               liveness: &probes
                 enabled: true
@@ -60,7 +60,7 @@ spec:
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
-              capabilities: { drop: ["ALL"] }
+              capabilities: { drop: [ "ALL" ] }
             resources:
               requests:
                 memory: 100Mi
@@ -74,7 +74,7 @@ spec:
         runAsGroup: 442
         fsGroup: 442
         fsGroupChangePolicy: OnRootMismatch
-        supplementalGroups: [10000]
+        supplementalGroups: [ 442 ]
         seccompProfile: { type: RuntimeDefault }
     service:
       app:
@@ -105,15 +105,17 @@ spec:
                 service:
                   identifier: app
                   port: http
-      s3:
-        className: internal
-        hosts:
           - host: &api-host "s3.${CLUSTER_DOMAIN}"
             paths:
               - path: /
                 service:
                   identifier: app
                   port: s3
+        tls:
+          - hosts:
+              - *console-host
+              - *api-host
+            secretName: "tls.${CLUSTER_DOMAIN/./-}"
     persistence:
       config:
         type: nfs
