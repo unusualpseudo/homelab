@@ -95,7 +95,7 @@ spec:
       app:
         className: internal
         hosts:
-          - host: "{{ .Release.Name }}.${CLUSTER_DOMAIN}"
+          - host: "sonarr.${CLUSTER_DOMAIN}"
             paths:
               - path: /
                 service:

@@ -21,3 +21,5 @@ resources:
   - ./longhorn.yaml
   - ./node-feature-discovery.yaml
   - ./intel.yaml
+  - ./piraeus.yaml
+  - ./backube.yaml

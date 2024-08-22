@@ -99,6 +99,6 @@ spec:
                   port: http
     persistence:
       config:
-        type: emptyDir
+        existingClaim: prowlarr
       tmp:
         type: emptyDir
