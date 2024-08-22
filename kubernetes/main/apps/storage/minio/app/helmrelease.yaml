@@ -120,6 +120,6 @@ spec:
       config:
         type: nfs
         server: ${NFS_BACKUP_SERVER_ADDR}
-        path: "/backups/Apps/Minio"
+        path: "${NFS_BACKUP_FOLDER}/Minio"
         globalMounts:
           - path: /data
