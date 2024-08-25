@@ -4,8 +4,8 @@ kind: PersistentVolumeClaim
 metadata:
   name: "${APP}"
 spec:
-  accessModes: ["${VOLSYNC_ACCESSMODES:-ReadWriteOnce}"]
+  accessModes: ["${VOLUME_ACCESSMODES:-ReadWriteOnce}"]
   resources:
     requests:
-      storage: "${VOLSYNC_CAPACITY}"
-  storageClassName: "${VOLSYNC_STORAGECLASS:-longhorn}"
+      storage: "${VOLUME_CAPACITY}"
+  storageClassName: "${VOLUME_STORAGECLASS:-longhorn}"

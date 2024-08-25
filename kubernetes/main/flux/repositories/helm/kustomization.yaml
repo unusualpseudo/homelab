@@ -23,3 +23,4 @@ resources:
   - ./intel.yaml
   - ./piraeus.yaml
   - ./backube.yaml
+  - ./k8s-at-home.yaml
