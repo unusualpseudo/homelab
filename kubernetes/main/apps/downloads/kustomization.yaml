@@ -4,7 +4,7 @@ kind: Kustomization
 resources:
   - ./namespace.yaml
   - ./qbittorrent/ks.yaml
-  - ./sabnzbd
+  - ./sabnzbd/ks.yaml
   - ./radarr/ks.yaml
   - ./prowlarr/ks.yaml
   - ./sonarr/ks.yaml

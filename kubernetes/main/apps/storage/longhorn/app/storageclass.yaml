@@ -2,26 +2,6 @@
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
-  name: longhorn
-reclaimPolicy: Delete
-provisioner: driver.longhorn.io
-parameters:
-  dataLocality: disabled
-  numberOfReplicas: "1"
-  replicaAutoBalance: best-effort
-  staleReplicaTimeout: "30"
-  fromBackup: ""
-  recurringJobSelector: '[
-    {
-      "name": "backup",
-      "isGroup": false
-    }
-  ]'
-allowVolumeExpansion: true
----
-apiVersion: storage.k8s.io/v1
-kind: StorageClass
-metadata:
   name: longhorn-cache
 reclaimPolicy: Delete
 provisioner: driver.longhorn.io

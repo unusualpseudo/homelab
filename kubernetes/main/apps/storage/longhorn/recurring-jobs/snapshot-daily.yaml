@@ -7,6 +7,6 @@ spec:
   cron: "20 3 * * *"
   task: "snapshot"
   groups:
-    - backup
+    - default
   retain: 7
   concurrency: 1
