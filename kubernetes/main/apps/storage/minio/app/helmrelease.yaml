@@ -119,7 +119,7 @@ spec:
     persistence:
       config:
         type: nfs
-        server: ${NFS_BACKUP_SERVER_ADDR}
-        path: "${NFS_BACKUP_FOLDER}/Minio"
+        server: ${NFS_SERVER_ADDR}
+        path: "${NFS_APPS_FOLDER}/"
         globalMounts:
           - path: /data

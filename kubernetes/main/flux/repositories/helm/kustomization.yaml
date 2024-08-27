@@ -19,8 +19,3 @@ resources:
   - ./cilium.yaml
   - ./openebs.yaml
   - ./longhorn.yaml
-  - ./node-feature-discovery.yaml
-  - ./intel.yaml
-  - ./piraeus.yaml
-  - ./backube.yaml
-  - ./k8s-at-home.yaml
