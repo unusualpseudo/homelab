@@ -19,3 +19,4 @@ resources:
   - ./cilium.yaml
   - ./openebs.yaml
   - ./longhorn.yaml
+  - ./spark-operator.yaml
