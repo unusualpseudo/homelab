@@ -20,3 +20,4 @@ resources:
   - ./openebs.yaml
   - ./longhorn.yaml
   - ./spark-operator.yaml
+  - ./jenkins.yaml
