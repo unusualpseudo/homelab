@@ -21,4 +21,3 @@ resources:
   - ./longhorn.yaml
   - ./spark-operator.yaml
   - ./jenkins.yaml
-  - ./harbor.yaml
